@@ -5,7 +5,7 @@ function App() {
   return (
     <div>
       <Login />
-      <Home />
+      {/*<Home />*/}
     </div>
   );
 }
