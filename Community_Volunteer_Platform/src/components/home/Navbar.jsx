@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Navbar() {
   // 1. Initialize state to track if the menu is open or closed
@@ -17,10 +18,12 @@ function Navbar() {
           <span className="self-center text-xl text-heading font-semibold whitespace-nowrap">community-volunteer-</span>
         </a>
         <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+          <Link to="/Login">
           <button type="button" className="text-white bg-red-500 hover:bg-brand-strong box-border border border-transparent focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-3 py-2 focus:outline-none">
             Get started
           </button>
           
+          </Link>
           {/* 3. Add onClick handler and dynamic aria-expanded */}
           <button
             onClick={toggleMenu}
