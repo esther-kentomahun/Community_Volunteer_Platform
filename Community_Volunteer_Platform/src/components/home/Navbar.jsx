@@ -1,64 +1,88 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+// import React, { useState } from "react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Navbar() {
-  // 1. Initialize state to track if the menu is open or closed
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // 2. Create a function to toggle that state
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
   return (
-    <nav className="bg-blue-600 fixed w-full z-20 top-0 start-0 border-b border-default">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="https://flowbite.com/" className="flex items-center space-x-3 rtl:space-x-reverse">
-          <img src="https://flowbite.com/docs/images/logo.svg" className="h-7" alt="Flowbite Logo" />
-          <span className="self-center text-xl text-heading font-semibold whitespace-nowrap">community-volunteer-</span>
-        </a>
-        <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-          <Link to="/Login">
-          <button type="button" className="text-white bg-red-500 hover:bg-brand-strong box-border border border-transparent focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-3 py-2 focus:outline-none">
-            Get started
-          </button>
-          
-          </Link>
-          {/* 3. Add onClick handler and dynamic aria-expanded */}
-          <button
-            onClick={toggleMenu}
-            type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-body rounded-base md:hidden hover:bg-neutral-secondary-soft hover:text-heading focus:outline-none focus:ring-2 focus:ring-neutral-tertiary"
-            aria-controls="navbar-sticky"
-            aria-expanded={isMenuOpen}
-          >
-            <span className="sr-only">Open main menu</span>
-            <svg className="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-              {/* Note: changed stroke-linecap and stroke-width to React camelCase */}
-              <path stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="M5 7h14M5 12h14M5 17h14" />
-            </svg>
-          </button>
-        </div>
-        
-        {/* 4. Conditionally apply the 'hidden' class based on state */}
-        <div 
-          className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${isMenuOpen ? 'block' : 'hidden'}`} 
-          id="navbar-sticky"
+    <nav className=" p-4 lg:p-1 bg-teal-500 ">
+      <div className="container   bg-amber-4 mx-auto flex items-center justify-between ">
+        <div >
+          <a
+          href=""
+          className=""
         >
-          <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-default rounded-base bg-neutral-secondary-soft md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-neutral-primary">
-            <li>
-              <a href="#" className="block py-2 px-3  bg-brand rounded-sm md:bg-transparent md:text-fg-brand md:p-0" aria-current="page">Home</a>
-            </li>
-            <li>
-              <a href="#" className="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">About</a>
-            </li>
-            <li>
-              <a href="#" className="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Services</a>
-            </li>
-            <li>
-              <a href="#" className="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Contact</a>
-            </li>
-          </ul>
+          Coommunity <b>Volunteer</b> Platform
+        </a>
+        </div>
+        <button
+          aria-expanded={isMenuOpen}
+          onClick={toggleMenu}
+          id="menu"
+          className="lg:hidden 
+          text-neutral-900 
+          hover:text-neutral-700
+          transition-colors 
+          "
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="h-8 w-8"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"
+            />
+          </svg>
+        </button>
+        <div
+          role="menubar"
+          className={`
+          ${isMenuOpen ? "flex" : "hidden"}
+         flex-col gap-4 absolute 
+         right-0 left-0 top-16 lg:flex lg:flex-row lg:static lg:shadow-none
+          lg:justify-between
+         lg:w-full
+         p-5
+         lg:p-3
+         text-center text-lg 
+         lg:items-center
+          bg-teal-500 shadow-xl `}>
+            
+          <div  className="flex flex-col gap-4 lg:flex-row lg:justify-around lg:gap- bg-red-5 lg:w-1/2 mx-auto" >
+           <Link to="/Dashboard"  onClick={() => setIsOpen(false)}>
+            <span  role="menuitem" className="">
+            Dashboard
+          </span>
+           </Link>
+          <a href="#" role="menuitem" className="">
+            About
+          </a>
+          <a href="#" role="menuitem" className="">
+            Contact
+          </a>
+           <a href="#" role="menuitem" className="">
+            Contact
+          </a>
+          </div>
+          <a
+            href="#"
+            role="menuitem"
+            className="py-4 px-10 bg-teal-700 rounded-lg 
+         text-white shadow-xl hover:shadow-none"
+          >
+            Login
+          </a>
         </div>
       </div>
     </nav>
