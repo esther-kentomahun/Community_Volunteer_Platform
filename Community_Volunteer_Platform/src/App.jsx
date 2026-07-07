@@ -6,7 +6,8 @@ import NgoDashboard from "./pages/NgoDashboard.jsx";
 function App() {
   return (
     <div>
-      <Login />
+      {/*<NgoDashboard />*/}
+      {/*<Login />*/}
       {/*<Home />*/}
     </div>
   );
