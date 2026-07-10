@@ -60,11 +60,11 @@ function Navbar() {
           bg-teal-500 shadow-xl `}>
             
           <div  className="flex flex-col gap-4 lg:flex-row lg:justify-around lg:gap- bg-red-5 lg:w-1/2 mx-auto" >
-           <Link to="/Dashboard"  onClick={() => setIsOpen(false)}>
+           {/* <Link to="/VolunteerDashboard"  onClick={() => setIsOpen(false)}>
             <span  role="menuitem" className="">
             Dashboard
           </span>
-           </Link>
+           </Link> */}
           <a href="#" role="menuitem" className="">
             About
           </a>
@@ -75,6 +75,7 @@ function Navbar() {
             Contact
           </a>
           </div>
+          <Link to="/login">
           <a
             href="#"
             role="menuitem"
@@ -83,6 +84,7 @@ function Navbar() {
           >
             Login
           </a>
+          </Link>
         </div>
       </div>
     </nav>

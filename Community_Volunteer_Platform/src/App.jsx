@@ -1,29 +1,31 @@
 import {BrowserRouter , Routes, Route} from "react-router-dom";
 import Login from "./pages/Login";
 import Home from "./components/home/Home.jsx";
-<<<<<<< HEAD
 import NgoDashboard from "./pages/NgoDashboard.jsx";
-=======
-import Dashboard from "./components/Admin/Dashboard.jsx";
->>>>>>> 6cc7c7075155d8438ebfd06c260c961dac411d08
+import VolunteerDashboard from "./pages/VolunteerPages/VolunteerDashboard.jsx";
+import VolunteerNav from "./components/User/Volunteer_Nav.jsx";
+import Profile from "./pages/VolunteerPages/Profile.jsx";
+import DashboardHome from "./pages/VolunteerPages/DashboardHome.jsx"
 
 function App() {
   return (
     <div>
-<<<<<<< HEAD
       {/*<NgoDashboard />*/}
       {/*<Login />*/}
       {/*<Home />*/}
-=======
      <BrowserRouter>
      <Routes>
       <Route path="/" element= { <Home/> } />
       <Route path="/login" element= { <Login/> } />
-      <Route path="/Dashboard" element= { <Dashboard/> } />
+
+      <Route path="/VolunteerDashboard" element= { <VolunteerDashboard/> }>
+      <Route index element={<DashboardHome/>} />
+      <Route path="Profile" element={<Profile />} />
+      
+       </Route>
 
      </Routes>
      </BrowserRouter> 
->>>>>>> 6cc7c7075155d8438ebfd06c260c961dac411d08
     </div>
   );
 }
