@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 function NgoDashboard() {
-    //const [orgName, setOrgName] = useState(["NGO Partner"]);
-    const [projects, setProjects] = useState([]);
-    const [projectTitle, setProjectTitle] = useState([]); 
+    const [projectTitle, setProjectTitle] = useState(""); 
     const [description, setDescription] = useState("");
     const [location, setLocation] = useState("");
     const [duration, setDuration] = useState("");
-    const [activeTab, setActiveTab] = useState("post-oppurtunity");
+    const [activeTab, setActiveTab] = useState("post-opportunity");
     const navigate = useNavigate();
     const [orgName, setOrgName] = useState (() => {
         const savedUser = localStorage.getItem("userData");
@@ -20,12 +18,12 @@ function NgoDashboard() {
     //security check in case of bypassers
     // useEffect(() => {
     //     const savedUser = localStorage.getItem("userData");
-    //     if (!savedUser) {
+    //      if (!savedUser) {
     //         alert("Access Denied: Please login to access the organization Management Portal.");
     //         navigate("/login");
     //     }
     // },[navigate]);
-    //Application
+    //Application tab
     const [applicants, setApplicants] = useState(() => {
         //Read the shared storage key
         const savedApps = localStorage.getItem("allVolunteerApplications");
@@ -41,20 +39,26 @@ function NgoDashboard() {
             return updatedApplicants;
         });
     };
+    //Post project tab
+    const [postedProjects, setPostedProjects] = useState(() => {
+        const savedProjects = localStorage.getItem("allPostedOpportunities");
+        return savedProjects ?JSON.parse(savedProjects) : [];
+    });
     const handlePostProject = (e) => {
         e.preventDefault();
-        if (!projectTitle.trim() || !description.trim() || !location.trim() ||!duration.trim()) {
-            alert("Error: All fields are mandatory. Please fill out Title, Description, Location and Duration");
-            return;
-        }
         const newProject = {
             id: Date.now(),
             title: projectTitle.trim(),
             description: description.trim(),
             location: location.trim(),
             duration: duration.trim(),
+            datePosted: new Date().toLocaleDateString("en-US", {month: "short", day: "numeric", year: "numeric"})
         };
-        setProjects([newProject, ...projects]);
+        setPostedProjects((prevProjects) => {
+            const updated = [newProject, ...prevProjects];
+            localStorage.setItem ("allPostedOpportunities", JSON.stringify(updated));
+            return updated;
+        });
         setProjectTitle("");
         setDescription("");
         setLocation("");
@@ -62,7 +66,7 @@ function NgoDashboard() {
         localStorage.setItem("projects", JSON.stringify(newProject) )
     };
     return (
-        <div className="w-full min-h-screen bg-slate-50 flex flex-col md:flex-row text-left">
+        <div className="w-full min-h-screen bg-slate-200 flex flex-col md:flex-row text-left">
             {/*LEFT SIDEBAR NAVIGATION PANEL*/}
             <aside className="w-full md:w-64 bg-white border-r border-gray-200 p-6 flex flex-col justify-between shrink-0">
                 <div>
@@ -117,7 +121,7 @@ function NgoDashboard() {
                </header>
                {/*EXISTING FORM CARD AND ACTIVE LISTINGS*/}
                {activeTab === "post-opportunity" && (
-                    <div className="max-w-3xl mx-auto">
+                    <div className="block w-full max-w-4xl mx-auto mt-8">
                         {/*HEADER*/}
                         <header className="mb-8 border-b border-gray-200 pb-4">
                             <h1 className="text-2xl font-bold tracking-tight">NGO/ORGANIZATION Management Portal</h1>
@@ -134,6 +138,7 @@ function NgoDashboard() {
                                         <input type="text" value={projectTitle} onChange={(e) => setProjectTitle(e.target.value)}
                                             placeholder="e.g., Mobile Clinic Outreach"
                                             className="block w-full p-3 bg-white border border-gray-300 rounded-lg text-sm outline-none focus:border-blue-500 transition-all"
+                                            required
                                        />
                                    </div>
                                    {/*PROJECT DESCRIPTION FIELD*/}
@@ -142,6 +147,7 @@ function NgoDashboard() {
                                        <textarea rows="4" value={description} onChange={(e) => setDescription(e.target.value)}
                                             placeholder="e.g., Describe project and volunteer task"
                                             className="block w-full p-3 bg-white border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 outline-none focus:ring-blue-500/20 focus:border-blue-500 transition-all resize-none"
+                                            required
                                        />
                                    </div>
                                    {/*LOCATION & DURATION*/}
@@ -152,6 +158,7 @@ function NgoDashboard() {
                                            <input type="text" value={location} onChange={(e) => setLocation(e.target.value)}
                                                placeholder="e.g., Remote/Lagos, Nigeria"
                                               className="block w-full p-3 bg-white border border-gray-300 rounded-lg text-sm outline-none focus:border-blue-500 transition-all"
+                                              required
                                            />
                                         </div>
                                         {/*DURATION INPUT FIELD*/}
@@ -160,6 +167,7 @@ function NgoDashboard() {
                                             <input type="text" value={duration} onChange={(e) => setDuration(e.target.value)}
                                                 placeholder="e.g., 3 weeks / 5hrs a day"
                                                 className="block w-full p-3 bg-white border border-gray-300 rounded-lg text-sm outline-none focus:border-blue-500 transition-all"
+                                                required
                                            />
                                        </div>
                                    </div>
@@ -171,17 +179,17 @@ function NgoDashboard() {
                            </form>
                         </section>
                         {/*ACTIVE LISTING FEED*/}
-                        <section className="block w-full max-w-xl mx-auto mt-8">
+                        <section className="w-full max-w-xl mt-8">
                             <h3 className="text-sm font-bold uppercase tracking-wider text-gray-500 mb-4 text-left">
-                                Active Listings ({projects.length})
+                                Active Listings ({postedProjects.length})
                             </h3>
-                            {projects.length === 0 ? (
+                            {postedProjects.length === 0 ? (
                                 <div className="bg-gray-100 border border-dashed border-gray-300 rounded-xl p-8 text-center text-gray-400 text-sm">
                                     No active initiatives published yet. Use the form above to deploy your first listing.
                                </div>
                             ) : (
                                 <div className="space-y-4">
-                                    {projects.map((project) => (
+                                    {postedProjects.map((project) => (
                                         <div key={project.id} className="bg-white border border-gray-100 rounded-xl p-6 shadow-sm hover:shadow-md transition-all text-left group relative">
                                             <div className="flex items-start justify-between mb-2">
                                                 <h4 className="font-bold text-gray-900 text-lg tracking-tight group-hover:text-blue-600 transition-colours">{project.title}</h4>
