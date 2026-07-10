@@ -29,9 +29,11 @@ function VolunteerSidebar({ isOpen, setIsOpen }) {
           <div className="p-3 mt-1 bg-white rounded-lg">Dashboard</div>
           </NavLink>
           <div className="p-3 bg-white mt-2 rounded-lg">My Applications</div>
+          <NavLink to="/VolunteerDashboard/Opportunities">
           <div className="p-3 mt-1 bg-white rounded-lg">
             Browse Opportunities
           </div>
+          </NavLink>
           <NavLink to="/VolunteerDashboard/Profile">
 
           <div className="p-3 mt-1 bg-white rounded-lg">Profile</div>

@@ -6,6 +6,8 @@ import VolunteerDashboard from "./pages/VolunteerPages/VolunteerDashboard.jsx";
 import VolunteerNav from "./components/User/Volunteer_Nav.jsx";
 import Profile from "./pages/VolunteerPages/Profile.jsx";
 import DashboardHome from "./pages/VolunteerPages/DashboardHome.jsx"
+import Opportunities from "./pages/VolunteerPages/Opportunities.jsx";
+// import Dashboard from "./components/Admin/Dashboard.jsx";
 
 function App() {
   return (
@@ -21,9 +23,12 @@ function App() {
       <Route path="/VolunteerDashboard" element= { <VolunteerDashboard/> }>
       <Route index element={<DashboardHome/>} />
       <Route path="Profile" element={<Profile />} />
+      <Route path="Opportunities" element={<Opportunities />} />
       
        </Route>
 
+      {/* <Route path="/Dashboard" element= { <Dashboard/> } /> */}
+      <Route path="/ngo-dashboard" element={<NgoDashboard/>} />
      </Routes>
      </BrowserRouter> 
     </div>

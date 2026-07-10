@@ -17,7 +17,7 @@ function Login() {
       return;
     }
     if (isLoginTab) {
-      const existingUserRaw = localStorage.getItem("UserDetails");
+      const existingUserRaw = localStorage.getItem(formattedEmail);
       if (!existingUserRaw) {
         alert(
           "Account not found. please switch to the 'Create Account' tab to sign up first!",
@@ -38,7 +38,9 @@ function Login() {
       } else {
         alert(
           `Welcome back, ${UserData.name}! Redirecting to your NGO Dashboard...`,
+          
         );
+        navigate("/ngo-dashboard");
       }
     } else {
       if (password.length < 6) {
@@ -59,7 +61,7 @@ function Login() {
         role: userRole,
       };
       //saving the profile object to localStorage using the email as the unique identifier key
-      localStorage.setItem('UserDetails', JSON.stringify(newUserProfile));
+      localStorage.setItem(formattedEmail, JSON.stringify(newUserProfile));
       if (userRole === "volunteer") {
         const firstName = fullName.trim().split(" ")[0];
         alert(`Account created successfully! Welcome, ${firstName}.`);
