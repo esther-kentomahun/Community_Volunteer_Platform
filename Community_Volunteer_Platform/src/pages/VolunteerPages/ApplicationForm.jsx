@@ -49,9 +49,17 @@ function ApplicationForm(){
     appliedAt: new Date().toLocaleDateString()
   }
 console.log(newApplications);
+console.log("before");
+
 applications.push(newApplications)
- localStorage.setItem("allApplications", JSON.stringify(applications))
-alert("Apllications submitted succeesfully")
+ localStorage.setItem("allApplications", JSON.stringify(applications));
+ console.log("after");
+ 
+ alert("Apllications submitted succeesfully")
+ setPhone("");
+  setSkills("");
+  setAvailability("");
+  setMotivation("");
     })
     return(
         <div className="lg:max-w-3xl mxauto bg-white shadow-lg rounded-lg p-8">
@@ -95,7 +103,7 @@ alert("Apllications submitted succeesfully")
 
                   <div>
                     <label htmlFor="FullName block font-medium mb-2">
-                       Phonne
+                       PhonE
                     </label>
                     <input 
                     type="text"
