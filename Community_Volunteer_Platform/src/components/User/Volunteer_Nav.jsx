@@ -10,7 +10,7 @@ function Volunteer_Nav({ setIsOpen }) {
     }
   }, []);
   return (
-    <main className="flex-1 p-6 bg-blue-800 text-white">
+    <main className="flex-1 p-6 bg-blue-600 text-white">
       <header className="flex justify-between items-center">
         <div className="left flex items-center gap-4">
           <button

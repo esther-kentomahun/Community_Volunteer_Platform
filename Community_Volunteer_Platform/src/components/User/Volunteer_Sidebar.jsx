@@ -11,7 +11,7 @@ function VolunteerSidebar({ isOpen, setIsOpen }) {
          h-screen
          w-64
          z-50
-         bg-blue-800 
+         bg-blue-600 
          shadow-md
          transform
          transition-transform
@@ -28,7 +28,9 @@ function VolunteerSidebar({ isOpen, setIsOpen }) {
 
           <div className="p-3 mt-1 bg-white rounded-lg">Dashboard</div>
           </NavLink>
+          <NavLink to="/VolunteerDashboard/Applications">
           <div className="p-3 bg-white mt-2 rounded-lg">My Applications</div>
+          </NavLink>
           <NavLink to="/VolunteerDashboard/Opportunities">
           <div className="p-3 mt-1 bg-white rounded-lg">
             Browse Opportunities
