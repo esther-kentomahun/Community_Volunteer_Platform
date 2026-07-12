@@ -75,6 +75,7 @@ function NgoDashboard() {
         setDescription("");
         setLocation("");
         setDuration("");
+        localStorage.setItem("projects", JSON.stringify(newProject) )
     };
     //report tab
     const totalCompletedProjects = postedProjects ? postedProjects.filter(p => p.status === "completed").length: 0;
