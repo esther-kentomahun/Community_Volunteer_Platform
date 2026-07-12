@@ -19,7 +19,7 @@ function ApplicationForm(){
     
     
     // check for existing projects 
-    const applications = JSON.parse(localStorage.getItem("allApplications")) || [];
+    const applications = JSON.parse(localStorage.getItem("allVolunteerApplications")) || [];
   // check for users that has already applied 
   const alreadyApplied  = applications.some((application) =>
     application.projectid === selectedProject.id &&
@@ -34,7 +34,7 @@ function ApplicationForm(){
   const newApplications = {
     id:  Date.now(),
     projectid: selectedProject.id,
-    prpjectTitle: selectedProject.title,
+    projectTitle: selectedProject.title,
 
     voulunteerName: CurrentUser.name,
     volunteerEmail: CurrentUser.email,
@@ -51,7 +51,7 @@ console.log(newApplications);
 
 
 applications.push(newApplications)
- localStorage.setItem("allApplications", JSON.stringify(applications));
+ localStorage.setItem("allVolunteerApplications", JSON.stringify(applications));
 
  
  alert("Apllications submitted succeesfully")
