@@ -102,7 +102,7 @@ applications.push(newApplications)
 
                   <div>
                     <label htmlFor="FullName block font-medium mb-2">
-                       PhonE
+                       Phone
                     </label>
                     <input 
                     type="text"
@@ -155,7 +155,7 @@ applications.push(newApplications)
                 </div>
                 <button 
                 type="submit"
-                className="bg-blue-600 text-white px-6 py-3 rounded-lg"
+                className="bg-teal-600 text-white px-6 py-3 rounded-lg"
                 >
               submit
                 </button>

@@ -10,7 +10,7 @@ function Volunteer_Nav({ setIsOpen }) {
     }
   }, []);
   return (
-    <main className="flex-1 p-6 bg-blue-600 text-white">
+    <main className="flex-1 p-6 bg-teal-400 text-white">
       <header className="flex justify-between items-center">
         <div className="left flex items-center gap-4">
           <button
@@ -26,7 +26,7 @@ function Volunteer_Nav({ setIsOpen }) {
                 Welcome , {currentUser.name}
               </h1>
             )}
-            <p className="text-white">Community Volunteer Platform</p>
+            <p className="text-white font-bold">VoluntHub</p>
           </div>
         </div>
         <div className="right">

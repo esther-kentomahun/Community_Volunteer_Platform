@@ -42,9 +42,9 @@ return(
                     filteredProjects.map((project)=>(
     
                     <div className="p-6 mt-4 md:mt-6 border  hover:shadow-lg transition duration-300 rounded-xl bg- flex flex-col justify-between" key={project.id}>
-                        <h2 className="font-bold text-lg text-blue-800">{project.title} </h2>
+                        <h2 className="font-bold text-lg text-teal-600">{project.title} </h2>
                   <p>{project.description}</p>
-                  <NavLink to= {`/VolunteerDashboard/Apply/${project.id}`} className="bg-blue-900 rounded-lg p-2 mt-3 text-white   text-center " >
+                  <NavLink to= {`/VolunteerDashboard/Apply/${project.id}`} className="bg-teal-400 rounded-lg p-2 mt-3 text-white   text-center " >
                     Apply 
                   </NavLink>
                     </div>
