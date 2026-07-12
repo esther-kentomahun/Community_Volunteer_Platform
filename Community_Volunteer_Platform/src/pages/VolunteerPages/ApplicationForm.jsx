@@ -2,9 +2,8 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 function ApplicationForm(){
     const { projectid } = useParams();
-    console.log(projectid);
     const AllProjects =JSON.parse(localStorage.getItem("allPostedOpportunities")) || []
-    console.log(AllProjects);
+
     const selectedProject = AllProjects.find(
         (AllProject)=> AllProject.id === Number(projectid))
 
@@ -17,7 +16,7 @@ function ApplicationForm(){
 
     const handleSubmit =((e) =>{
     e.preventDefault();
-    console.log("click");
+    
     
     // check for existing projects 
     const applications = JSON.parse(localStorage.getItem("allApplications")) || [];
@@ -49,11 +48,11 @@ function ApplicationForm(){
     appliedAt: new Date().toLocaleDateString()
   }
 console.log(newApplications);
-console.log("before");
+
 
 applications.push(newApplications)
  localStorage.setItem("allApplications", JSON.stringify(applications));
- console.log("after");
+
  
  alert("Apllications submitted succeesfully")
  setPhone("");
