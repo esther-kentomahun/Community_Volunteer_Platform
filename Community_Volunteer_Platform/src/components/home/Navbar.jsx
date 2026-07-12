@@ -1,23 +1,37 @@
 // import React, { useState } from "react";
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+  const [currentUser , setCurrentUser] = useState(null)
+  useEffect(()=>{
+    const  storedUser = JSON.parse(localStorage.getItem("CurrentUser"));
+    if (storedUser) {
+      setCurrentUser(storedUser)
+    }
+  },[]);
+
+  const handleLogout = (()=>{
+localStorage.removeItem("currentUser");
+setCurrentUser(null);
+navigate("/")
+  })
 
   return (
-    <nav className=" p-4 lg:p-1 bg-teal-500 ">
+    <nav className=" p-4 lg:p-1 bg-teal-600 text-white  ">
       <div className="container   bg-amber-4 mx-auto flex items-center justify-between ">
-        <div >
+        <div className="lg:mx-3">
           <a
           href=""
-          className=""
+          className="text-3xl font-bold"
+          
         >
-          Coommunity <b>Volunteer</b> Platform
+         VoluntHub
         </a>
         </div>
         <button
@@ -36,7 +50,7 @@ function Navbar() {
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="currentColor"
-            class="h-8 w-8"
+            className="h-8 w-8 text-white"
           >
             <path
               stroke-linecap="round"
@@ -57,7 +71,8 @@ function Navbar() {
          lg:p-3
          text-center text-lg 
          lg:items-center
-          bg-teal-500 shadow-xl `}>
+         text-white
+          bg-teal-600 shadow-xl `}>
             
           <div  className="flex flex-col gap-4 lg:flex-row lg:justify-around lg:gap- bg-red-5 lg:w-1/2 mx-auto" >
            {/* <Link to="/VolunteerDashboard"  onClick={() => setIsOpen(false)}>
@@ -75,16 +90,39 @@ function Navbar() {
             Contact
           </a>
           </div>
+       
+        {currentUser? (
+           <div className="lg:flex block  items-center gap-4 mx-auto">
+         <div>
+           <span className="font-medium">
+           Hi, {currentUser.name}
+          </span>
+         </div>
+          <button onClick={handleLogout} className="py-2 px-6 bg-teal-700 rounded-lg 
+         text-white shadow-xl hover:shadow-none">
+          Logout
+          </button>
+          </div>
+
+
+          ): (
+          
           <Link to="/login">
-          <a
-            href="#"
+          <span
+           
             role="menuitem"
-            className="py-4 px-10 bg-teal-700 rounded-lg 
+            className="py-2 px-6 bg-teal-700 rounded-lg 
          text-white shadow-xl hover:shadow-none"
           >
             Login
-          </a>
+          </span>
           </Link>
+        )}
+
+    
+
+
+
         </div>
       </div>
     </nav>
