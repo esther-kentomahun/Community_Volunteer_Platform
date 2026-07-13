@@ -1,5 +1,5 @@
-﻿# Community_Volunteer_Platform
-# Community Volunteer Platform
+
+# VolunteerHub
 
 A responsive, dynamic web application designed to connect individuals with meaningful volunteer opportunities while enabling NGOs and organizations to post initiatives, track applications, and manage portal activities seamlessly.
 
