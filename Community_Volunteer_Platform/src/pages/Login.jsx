@@ -72,7 +72,7 @@ function Login() {
     }
   };
   return (
-    <div className="min-h-screen w-h-full flex items-center justify-center bg-slate-100 relative p-4">
+    <div className="min-h-screen w-h-full flex items-center justify-center bg-teal-200 relative p-4">
       <div className="absolute inset-0 bg-cover bg-center filter blur-sm opacity-30 pointer-events-none" />
       {/*main form box*/}
       <div className="w-full max-w-md bg-white border border-gray-100 rounded-2xl shadow-xl p-8 relative z-10">
@@ -92,14 +92,14 @@ function Login() {
           <button
             type="button"
             onClick={() => setIsLoginTab(true)}
-            className={`w-1/2 py-3 text-sm font-semibold transition-all cursor-pointer border-b-2 -mb-[2px] ${isLoginTab ? "border-blue-500 text-blue-500" : "border-transparent text-gray-400 hover:text-gray-800"}`}
+            className={`w-1/2 py-3 text-sm font-semibold transition-all cursor-pointer border-b-2 -mb-[2px] ${isLoginTab ? "border-teal-500 text-teal-500" : "border-transparent text-gray-400 hover:text-gray-800"}`}
           >
             Login
           </button>
           <button
             type="button"
             onClick={() => setIsLoginTab(false)}
-            className={`w-1/2 py-3 text-sm font-semibold transition-all cursor-pointer border-b-2 -mb-[2px] ${!isLoginTab ? "border-blue-500 text-blue-600" : "border-transparent text-gray-400 hover:text-gray-800"}`}
+            className={`w-1/2 py-3 text-sm font-semibold transition-all cursor-pointer border-b-2 -mb-[2px] ${!isLoginTab ? "border-teal-500 text-teal-500" : "border-transparent text-gray-400 hover:text-gray-800"}`}
           >
             Sign Up
           </button>
@@ -201,7 +201,7 @@ function Login() {
                   onClick={() => setUserRole("volunteer")}
                   className={`flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg border text-sm font-medium transition-all cursor-pointer ${
                     userRole === "volunteer"
-                      ? "border-blue-600 bg-blue-50 text-blue-700 font-semibold ring-1 ring-blue-600"
+                      ? "border-teal-600 bg-teal-50 text-teal-700 font-semibold ring-1 ring-teal-600"
                       : "border-gray-200 bg-white text-gray-600 hover:bg-gray-50"
                   }`}
                 >
@@ -213,7 +213,7 @@ function Login() {
                   onClick={() => setUserRole("ngo")}
                   className={`flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg border text-sm font-medium transition-all cursor-pointer ${
                     userRole === "ngo"
-                      ? "border-blue-600 bg-blue-50 text-blue-700 font-semibold ring-1 ring-blue-600"
+                      ? "border-teal-600 bg-teal-50 text-teal-700 font-semibold ring-1 ring-teal-600"
                       : "border-gray-200 bg-white text-gray-600 hover:bg-gray-50"
                   }`}
                 >
@@ -225,8 +225,7 @@ function Login() {
           {/*continue button*/}
           <button
             type="submit"
-            className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg text-sm transition-colors shadow-sm cursor-pointer"
-          >
+            className="w-full mt-4 bg-teal-500 hover:bg-teal-600 text-white font-medium py-3 px-4 rounded-lg text-sm transition-colors shadow-sm cursor-pointer">
             {isLoginTab ? "Continue" : "Create Account"}
           </button>
         </form>
@@ -275,8 +274,7 @@ function Login() {
             <button
               type="button"
               onClick={() => setIsLoginTab(!isLoginTab)}
-              className="font-semibold text-orange-600 hover:underline cursor-pointer bg-transparent border-none p-0 inline ms-1"
-            >
+              className="font-semibold text-orange-600 hover:underline cursor-pointer bg-transparent border-none p-0 inline ms-1 outline-none focus:outline-none focus:ring-0">
               {isLoginTab ? "Create Profile" : "Login Now"}
             </button>
           </p>

@@ -31,10 +31,6 @@ function NgoDashboard() {
         //load applications if there's any else fall back to empty
         return savedApps ? JSON.parse(savedApps) : [];
     });
-    // const [volunteerApplications, setVolunteerApplications] = React.useState(() => {
-    //     const savedApps = localStorage.getItem("allVolunteerApplications");
-    //     return savedApps ? JSON.parse(savedApps) : [];
-    // });
     // dashbord calculations
     const totalApplicantsCount = applicants ? applicants.length : 0;
     const approvedApplicantsCount = applicants ? applicants.filter(app => app.status === "Approved" || app.status === "Accepted").length : 0;
@@ -48,7 +44,6 @@ function NgoDashboard() {
             return updatedApplicants;
         });
     };
-    
     //Post project tab
     const [postedProjects, setPostedProjects] = useState(() => {
         const savedProjects = localStorage.getItem("allPostedOpportunities");
@@ -75,46 +70,112 @@ function NgoDashboard() {
         setDescription("");
         setLocation("");
         setDuration("");
-        localStorage.setItem("projects", JSON.stringify(newProject) )
+        localStorage.setItem("projects", JSON.stringify(newProject))
     };
     //report tab
     const totalCompletedProjects = postedProjects ? postedProjects.filter(p => p.status === "completed").length: 0;
     const totalApprovedVolunteers = applicants ? applicants.filter(a => a.status === "Approved" || a.status === "Accepted").length : 0;
-    const handleToggleProjectStatus = (projectIndex) => {
+    const handleToggleProjectStatus = (projectId) => {
         const updatedProjects = postedProjects.map((project, index) => {
-            if (index === projectIndex) {
+            if (project.id === projectId) {
                 const newStatus = project.status === "Completed" ? "Active" : "Completed";
                 return { ...project, status: newStatus };
             }
             return project;
         });
         setPostedProjects(updatedProjects);
-        localStorage.setItem("allPotedOpportunities", JSON.stringify(updatedProjects));
+        localStorage.setItem("allPostedOpportunities", JSON.stringify(updatedProjects));
+    };
+    const activeInitiativesCount = postedProjects ? postedProjects.filter((project) => project.status !== "Completed").length : 0;
+    //settings tab
+    const currentUserData = JSON.parse(localStorage.getItem("CurrentUser"));
+    const [profileName, setProfileName] = useState(currentUserData.name);
+    const [profileEmail, setProfileEmail] = useState(currentUserData.email);
+    const [currentPassword, setCurrentPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    // Feedback messages
+    const [successMsg, setSuccessMsg] = useState("");
+    const [errorMsg, setErrorMsg] = useState("");
+    const handleUpdateProfile = (e) => {
+        e.preventDefault();
+        setErrorMsg("");
+        setSuccessMsg("");
+        //Password verification (only if filling out password fields)
+        if (newPassword || confirmPassword || currentPassword) {
+            if (!currentPassword) {
+                setErrorMsg("Please enter your current password.");
+                return;
+            }
+            if (currentUserData.password && currentPassword !== currentUserData.password) {
+                setErrorMsg("Current password is incorrect.");
+                return;
+            }
+            if (newPassword.length < 6) {
+                setErrorMsg("New password must be at least 6 characters.");
+                return;
+            }
+            if (newPassword !== confirmPassword) {
+                setErrorMsg("New password and confirm password do not match.");
+                return;
+            }
+        }
+        //Build updated user object
+        const updatedUser = {
+            ...currentUserData,
+            name: profileName,
+            email: profileEmail,
+            password: newPassword ? newPassword : currentUserData.password,
+        };
+        //Save to LocalStorage
+        localStorage.setItem("CurrentUser", JSON.stringify(updatedUser));
+        // Update main UserData array if it exists
+        const allUsers = JSON.parse(localStorage.getItem("UserData") || "[]");
+        if (allUsers.length > 0) {
+            const updatedAllUsers = allUsers.map((u) => 
+                u.email === currentUserData.email ? updatedUser : u
+            );
+            localStorage.setItem("UserData", JSON.stringify(updatedAllUsers));
+        }
+        //Update state feedback
+        setOrgName(profileName);
+        setSuccessMsg("Profile updated successfully!");
+        setCurrentPassword("");
+        setNewPassword("");
+        setConfirmPassword("");
+    };
+    const handleLogout = () => {
+        // Clear the active session tracking from LocalStorage
+        localStorage.removeItem("CurrentUser");
+        // Clear any local state tracking if needed
+        setCurrentUser(null); 
+        alert("You have been securely logged out.");
+        navigate("/login");
     };
     return (
         <div className="w-full min-h-screen bg-teal-200 flex flex-col md:flex-row text-left">
-                {/*MOBILE TOP HEADER*/}
-                <div className="md:hidden flex items-center justify-between bg-white border-b border-gray-200 px-4 py-3 sticky top-0 z-20">
-                    <div className="flex items-center gap-2">
-                        <span className="font-bold text-gray-900 text-sm">Organization Portal Admin</span>
-                   </div>
-                   {/*Hamburger Toggle Button*/}
-                   <button
-                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                        className="p-2 rounded-lg text-gray-600 hover:bg-gray-100 focus:outline-none" aria-label="Toggle navigation menu">
-                        {isMobileMenuOpen ? (
-                            // "X" Close Icon
-                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        ) : (
-                            // Hamburger Icon
-                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-                            </svg>
-                        )}
-                   </button>
-               </div>
+            {/*MOBILE TOP HEADER*/}
+            <div className="md:hidden flex items-center justify-between bg-white border-b border-gray-200 px-4 py-3 sticky top-0 z-20">
+                <div className="flex items-center gap-2">
+                    <span className="font-bold text-gray-900 text-sm">Organization Portal Admin</span>
+                </div>
+                {/*Hamburger Toggle Button*/}
+                <button
+                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                    className="p-2 rounded-lg text-gray-600 hover:bg-gray-100 focus:outline-none" aria-label="Toggle navigation menu">
+                    {isMobileMenuOpen ? (
+                        // "X" Close Icon
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    ) : (
+                        // Hamburger Icon
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    )}
+               </button>
+           </div>
                {/*OVERLAY BACKDROP (MOBILE ONLY)*/}
                {isMobileMenuOpen && (
                     <div className="fixed inset-0 bg-black/40 z-30 md:hidden transition-opacity"
@@ -131,6 +192,7 @@ function NgoDashboard() {
                    {/* Navigation Links */}
                     <nav className="space-y-1 flex-1">
                         {[
+                            { id: "home", label: "Home"},
                             { id: "dashboard", label: "Dashboard"},
                             { id: "post-opportunity", label: "Post Opportunity"},
                             { id: "applications", label: "Applications"},
@@ -139,8 +201,12 @@ function NgoDashboard() {
                         ].map((tab) => (
                             <button
                                 key={tab.id} onClick={() => {
-                                    setActiveTab(tab.id);
-                                    setIsMobileMenuOpen(false); // Closes the drawer automatically after selecting a tab!
+                                    if (tab.id === "home") {
+                                        navigate("/");
+                                    } else {
+                                      setActiveTab(tab.id);
+                                      setIsMobileMenuOpen(false); // Closes the drawer automatically after selecting a tab!
+                                    }
                                 }}
                                 className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition-all text-left 
                                 ${activeTab === tab.id ? "bg-teal-100 text-amber-900 border border-teal-300 font-semibold" : "text-gray-600 hover:bg-teal-100/50"}`}>
@@ -173,7 +239,7 @@ function NgoDashboard() {
                             <div className="border border-gray-100 rounded-xl p-6 bg-white shadow-sm">
                                 <p className="text-xs font-medium tracking-wider text-gray-700 uppercase">Active Initiatives</p>
                                 <p className="text-4xl font-light tracking-tight text-gray-900 mt-2">
-                                    {postedProjects ? postedProjects.length : 0}
+                                    {activeInitiativesCount}
                                </p>
                             </div>
                             {/* Card 2 */}
@@ -190,8 +256,8 @@ function NgoDashboard() {
                        {/* RECENT POSTS TABLE */}
                        <div className="space-y-4">
                             <h3 className="text-lg font-medium tracking-tight text-gray-800">Recent Overview</h3>
-                            <div className="border border-gray-100 rounded-xl overflow-hidden bg-white shadow-sm">
-                                <table className="w-full text-left border-collapse">
+                            <div className="border border-gray-100 rounded-xl overflow-x-auto w-full bg-white shadow-sm">
+                                <table className="w-full text-left font-light text-sm min-w-[600px]">
                                     <thead>
                                         <tr className="border-b border-gray-100 bg-gray-50/50 text-xs font-medium tracking-wider text-gray-800 uppercase">
                                             <th className="p-4 font-medium">Project Title</th>
@@ -215,7 +281,7 @@ function NgoDashboard() {
                                                        </span>
                                                    </td>
                                                    <td className="p-4 text-right">
-                                                        <button onClick={() => handleToggleProjectStatus(index)}
+                                                        <button onClick={() => handleToggleProjectStatus(project.id)}
                                                             className={`px-3 py-1 text-xs font-medium rounded-lg transition-colors ${
                                                                 project.status === "Completed" ? "bg-gray-200 hover:bg-gray-300 text-gray-700"
                                                                 : "bg-teal-600 hover:bg-teal-700 text-white"
@@ -299,7 +365,7 @@ function NgoDashboard() {
                         {/*ACTIVE LISTING FEED*/}
                         <section className="w-full max-w-xl mt-8">
                             <h3 className="text-sm font-bold uppercase tracking-wider text-gray-500 mb-4 text-left">
-                                Active Listings ({postedProjects.length})
+                                Active Listings ({postedProjects ? postedProjects.filter(p => p.status !== "Completed").length : 0})
                             </h3>
                             {postedProjects.length === 0 ? (
                                 <div className="bg-gray-100 border border-dashed border-gray-300 rounded-xl p-8 text-center text-gray-400 text-sm">
@@ -311,8 +377,11 @@ function NgoDashboard() {
                                         <div key={project.id} className="bg-white border border-gray-100 rounded-xl p-6 shadow-sm hover:shadow-md transition-all text-left group relative">
                                             <div className="flex items-start justify-between mb-2">
                                                 <h4 className="font-bold text-gray-900 text-lg tracking-tight group-hover:text-blue-600 transition-colours">{project.title}</h4>
-                                                <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-100">Active</span>
-                                            </div>
+                                                <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${project.status === "Completed"
+                                                    ? "bg-gray-100 text-gray-600 border-gray-200" : "bg-emerald-50 text-emerald-700 border-emerald-100"}`}>
+                                                    {project.status || "Active"}
+                                               </span>
+                                           </div>
                                             <div className="flex flex-wrap gap-4 text-xs font-medium text-gray-400 border-b border-gray-50 pb-3 mb-3">
                                                 <span className="flex items-center gap-1">
                                                     <span>📍</span> {project.location}
@@ -339,12 +408,15 @@ function NgoDashboard() {
                             <p className="text-md text-gray-800 mt-1">Review and manage individuals who applied for your initiatives.</p>
                         </div>
                         {/* Table Container */}
-                        <div className="border border-gray-100 rounded-xl overflow-hidden bg-white shadow-sm">
-                            <table className="w-full text-left border-collapse">
+                        <div className="border border-gray-100 rounded-xl overflow-x-auto bg-white shadow-sm">
+                            <table className="w-full text-left min-w-[600px]">
                                 <thead>
                                     <tr className="border-b border-gray-100 bg-gray-50/50 text-xs font-semibold tracking-wider text-gray-800 uppercase">
                                         <th className="p-4 font-medium">Volunteer</th>
                                         <th className="p-4 font-medium">Applied Position</th>
+                                        <th className="p-4 font-medium">Volunteer id</th>
+                                        <th className="p-4 font-medium">Skills</th>
+                                        <th className="p-4 font-medium">Availability</th>
                                         <th className="p-4 font-medium">Date</th>
                                         <th className="p-4 font-medium">Status</th>
                                         <th className="p-4 font-medium text-right">Actions</th>
@@ -360,6 +432,12 @@ function NgoDashboard() {
                                            </td>
                                            {/* Position */}
                                            <td className="p-4 text-gray-800 font-light">{applicant.position || applicant.projectTitle}</td>
+                                           {/* id */}
+                                           <td className="p-4 text-gray-800 font-light">{applicant.id}</td>
+                                           {/* Skills */}
+                                           <td className="p-4 text-gray-800 font-light">{applicant.skills}</td>
+                                           {/* availability */}
+                                           <td className="p-4 text-gray-800 font-light">{applicant.availability || applicant.availaibility}</td>
                                            {/* Date */}
                                            <td className="p-4 text-gray-800 font-light">{applicant.date || applicant.appliedAt}</td>
                                            {/* Interactive Dynamic Badge */}
@@ -385,7 +463,7 @@ function NgoDashboard() {
                                                        </button>
                                                    </>
                                                 ) : (
-                                                    <span className="text-xs text-gray-300 italic font-light">Processed</span>
+                                                    <span className="text-xs text-gray-500 italic font-light">Processed</span>
                                                 )}
                                             </td>
                                        </tr>
@@ -395,6 +473,7 @@ function NgoDashboard() {
                        </div>
                    </div>
                 )}
+                {/*Report tab*/}
                 {activeTab === "reports" && (
                     <div className="space-y-8">
                         {/* Header */}
@@ -431,8 +510,8 @@ function NgoDashboard() {
                        {/* Project Performance Breakdown Table */}
                        <div className="space-y-4">
                             <h3 className="text-lg font-medium text-gray-800">Initiative Performance Breakdown</h3>
-                            <div className="border border-gray-100 rounded-xl overflow-hidden bg-white shadow-sm">
-                                <table className="w-full text-left border-collapse">
+                            <div className="border border-gray-100 rounded-xl overflow-x-auto bg-white shadow-sm">
+                                <table className="w-full text-left min-w-[600px]">
                                     <thead>
                                         <tr className="border-b border-gray-100 bg-gray-50/50 text-xs font-medium tracking-wider text-gray-800 uppercase">
                                             <th className="p-4">Initiative Title</th>
@@ -442,7 +521,7 @@ function NgoDashboard() {
                                             <th className="p-4">Current Status</th>
                                        </tr>
                                   </thead>
-                                  <tbody className="divide-y divide-gray-50 text-sm text-gray-700">
+                                  <tbody className="divide-y divide-gray-200 text-sm text-gray-700">
                                         {postedProjects && postedProjects.length > 0 ? (
                                             postedProjects.map((project, idx) => {
                                                 // Calculate applicants per project title
@@ -475,6 +554,95 @@ function NgoDashboard() {
                            </div>
                        </div>
                   </div>
+                )}
+                {/*Settings tab*/}
+                {activeTab === "settings" && (
+                    <div className="space-y-6 max-w-2xl text-left">
+                        {/*Alert Notifications*/}
+                        {successMsg && (
+                            <div className="p-4 bg-green-50 border border-green-200 text-green-700 text-sm rounded-xl">
+                                {successMsg}
+                           </div>
+                        )}
+                        {errorMsg && (
+                            <div className="p-4 bg-red-50 border border-red-200 text-red-600 text-sm rounded-xl">
+                                {errorMsg}
+                            </div>
+                        )}
+                        {/* Profile Edit Form */}
+                        <form onSubmit={handleUpdateProfile} className="bg-white/80 backdrop-blur border border-gray-100 rounded-xl p-6 shadow-sm space-y-6">
+                            <h3 className="text-lg font-bold text-gray-800">Edit Organization Profile</h3>
+                            <div className="space-y-4">
+                                <div>
+                                    <label className="block text-xs font-semibold text-gray-500 uppercase mb-2">
+                                        Organization Name
+                                   </label>
+                                   <input type="text" value={profileName} onChange={(e) => setProfileName(e.target.value)} required
+                                        className="w-full border border-gray-200 rounded-lg p-3 text-gray-800 focus:outline-none focus:border-teal-600 transition-colors"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-semibold text-gray-500 uppercase mb-2">
+                                        Email Address
+                                    </label>
+                                    <input type="email" value={profileEmail} onChange={(e) => setProfileEmail(e.target.value)} required
+                                        className="w-full border border-gray-200 rounded-lg p-3 text-gray-800 focus:outline-none focus:border-teal-600 transition-colors"
+                                    />
+                               </div>
+                           </div>
+                           <hr className="border-gray-100 my-4" />
+                            {/*Security Section*/}
+                            <div className="space-y-4">
+                                <h4 className="text-sm font-semibold text-gray-700">Security / Change Password</h4>
+                                <div>
+                                    <label className="block text-xs font-medium text-gray-500 mb-1">
+                                        Current Password
+                                    </label>
+                                    <input type="password" placeholder="••••••••" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)}
+                                        className="w-full border border-gray-200 rounded-lg p-3 text-gray-800 focus:outline-none focus:border-teal-600 transition-colors"
+                                    />
+                               </div>
+                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="block text-xs font-medium text-gray-500 mb-1">
+                                            New Password
+                                       </label>
+                                       <input type="password" placeholder="••••••••" value={newPassword} onChange={(e) => setNewPassword(e.target.value)}
+                                            className="w-full border border-gray-200 rounded-lg p-3 text-gray-800 focus:outline-none focus:border-teal-600 transition-colors"
+                                        />
+                                   </div>
+                                   <div>
+                                        <label className="block text-xs font-medium text-gray-500 mb-1">
+                                            Confirm New Password
+                                       </label>
+                                       <input type="password" placeholder="••••••••" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
+                                            className="w-full border border-gray-200 rounded-lg p-3 text-gray-800 focus:outline-none focus:border-teal-600 transition-colors"
+                                        />
+                                   </div>
+                               </div>
+                           </div>
+                           <div className="pt-2">
+                                <button type="submit"
+                                    className="w-full sm:w-auto px-6 py-2.5 bg-teal-700 hover:bg-teal-800 text-white font-medium rounded-lg shadow-sm transition-colors cursor-pointer">
+                                    Save Changes
+                               </button>
+                           </div>
+                        </form>
+                        {/*Logout Box*/}
+                        <div className="bg-white/80 backdrop-blur border border-gray-100 rounded-xl p-6 shadow-sm">
+                            <h3 className="text-lg font-bold text-gray-800 mb-2">Account Actions</h3>
+                            <p className="text-sm text-gray-500 mb-6">Manage your session settings and secure access to the platform portal.</p>     
+                            <button type="button"
+                                onClick={() => {
+                                    localStorage.removeItem("CurrentUser");
+                                    alert("You have been securely logged out.");
+                                    navigate("/login");
+                                }}
+                                className="w-full sm:w-auto px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg shadow-sm transition-colors cursor-pointer flex items-center justify-center gap-2">
+                                Log Out Account
+                           </button>
+                       </div>
+                   </div>
                 )}
            </main>
        </div>
