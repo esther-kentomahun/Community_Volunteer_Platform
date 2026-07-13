@@ -11,7 +11,7 @@ function VolunteerSidebar({ isOpen, setIsOpen }) {
          h-screen
          w-64
          z-50
-         bg-teal-400 
+         bg-teal-200 
          shadow-md
          transform
          transition-transform
@@ -26,7 +26,7 @@ function VolunteerSidebar({ isOpen, setIsOpen }) {
           <div className="py-5  bg-white rounded-lg text-black text-center"><span className="text-6xl text-black ">👤</span></div>
          <NavLink to="/">
 
-          <div className="p-3 mt-1 bg-white rounded-lg">Home</div>
+          <div className="p-3 mt-1 hover:bg-teal-200  rounded-lg">Home</div>
           </NavLink>
           <NavLink to="/VolunteerDashboard">
 

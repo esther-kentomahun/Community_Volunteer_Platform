@@ -427,7 +427,7 @@ function NgoDashboard() {
                                         <tr key={applicant.id } className="hover:bg-gray-50/50 transition-colors">
                                             {/* Profile Details */}
                                             <td className="p-4">
-                                                <div className="font-medium text-gray-900">{applicant.name || applicant.fullName || applicant.VolunteerName || "Anonymous"}</div>
+                                                <div className="font-medium text-gray-900">{applicant.name || applicant.fullName || applicant.voulunteerName || "Anonymous"}</div>
                                                 <div className="text-xs text-gray-800 font-light">{applicant.email}</div>
                                            </td>
                                            {/* Position */}

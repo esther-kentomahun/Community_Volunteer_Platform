@@ -8,7 +8,7 @@ function ApplicationForm(){
         (AllProject)=> AllProject.id === Number(projectid))
 
     const CurrentUser = JSON.parse(localStorage.getItem("CurrentUser"))
-
+console.log("Current users",CurrentUser);
     const [ phone , setPhone] =  useState("");
     const [ skills , setSkills ] = useState("");
     const [ availaibility, setAvailability ] = useState("");
@@ -26,6 +26,7 @@ function ApplicationForm(){
    application.volunteerEmail === CurrentUser.email 
  );
  if (alreadyApplied) {
+
     alert('You have Already applied for this project')
     return
  }
