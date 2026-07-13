@@ -9,16 +9,16 @@ function NgoDashboard() {
     const [activeTab, setActiveTab] = useState("dashboard");
     const navigate = useNavigate();
     const [orgName, setOrgName] = useState (() => {
-        const savedUser = localStorage.getItem("userData");
+        const savedUser = localStorage.getItem("CurrentUser");
         if (savedUser) {
             const parsedUser = JSON.parse(savedUser);
-            return parsedUser.fullName || "organization";
+            return parsedUser.name || "Organization";
         }
-        return "Organization Portal";
+        return "Organization";
     });
     //security check in case of bypassers
     // useEffect(() => {
-    //     const savedUser = localStorage.getItem("userData");
+    //     const savedUser = localStorage.getItem("UserData");
     //      if (!savedUser) {
     //         alert("Access Denied: Please login to access the organization Management Portal.");
     //         navigate("/login");
@@ -31,13 +31,13 @@ function NgoDashboard() {
         //load applications if there's any else fall back to empty
         return savedApps ? JSON.parse(savedApps) : [];
     });
-    const [volunteerApplications, setVolunteerApplications] = React.useState(() => {
-        const savedApps = localStorage.getItem("allVolunteerApplications");
-        return savedApps ? JSON.parse(savedApps) : [];
-    });
+    // const [volunteerApplications, setVolunteerApplications] = React.useState(() => {
+    //     const savedApps = localStorage.getItem("allVolunteerApplications");
+    //     return savedApps ? JSON.parse(savedApps) : [];
+    // });
     // dashbord calculations
-    const totalApplicantsCount = volunteerApplications ? volunteerApplications.length : 0;
-    const approvedApplicantsCount = volunteerApplications ? volunteerApplications.filter(app => app.status === "Approved").length : 0;
+    const totalApplicantsCount = applicants ? applicants.length : 0;
+    const approvedApplicantsCount = applicants ? applicants.filter(app => app.status === "Approved" || app.status === "Accepted").length : 0;
     const filledPercentage = totalApplicantsCount > 0 ? Math.round((approvedApplicantsCount / totalApplicantsCount) * 100) : 0;
     const handleStatusChange = (id, newStatus) => {
         setApplicants((prevApplicants) => {
@@ -79,7 +79,7 @@ function NgoDashboard() {
     };
     //report tab
     const totalCompletedProjects = postedProjects ? postedProjects.filter(p => p.status === "completed").length: 0;
-    const totalApprovedVolunteers = volunteerApplications ? volunteerApplications.filter(a => a.status === "Approved").length : 0;
+    const totalApprovedVolunteers = applicants ? applicants.filter(a => a.status === "Approved" || a.status === "Accepted").length : 0;
     const handleToggleProjectStatus = (projectIndex) => {
         const updatedProjects = postedProjects.map((project, index) => {
             if (index === projectIndex) {
@@ -352,16 +352,16 @@ function NgoDashboard() {
                                </thead>
                                <tbody className="divide-y divide-gray-50 text-sm text-gray-600">
                                     {applicants.map((applicant) => (
-                                        <tr key={applicant.id} className="hover:bg-gray-50/50 transition-colors">
+                                        <tr key={applicant.id } className="hover:bg-gray-50/50 transition-colors">
                                             {/* Profile Details */}
                                             <td className="p-4">
-                                                <div className="font-medium text-gray-900">{applicant.name}</div>
-                                                <div className="text-xs text-gray-400 font-light">{applicant.email}</div>
+                                                <div className="font-medium text-gray-900">{applicant.name || applicant.fullName || applicant.voulunteerName || "Anonymous"}</div>
+                                                <div className="text-xs text-gray-800 font-light">{applicant.email}</div>
                                            </td>
                                            {/* Position */}
-                                           <td className="p-4 text-gray-500 font-light">{applicant.position}</td>
+                                           <td className="p-4 text-gray-800 font-light">{applicant.position || applicant.projectTitle}</td>
                                            {/* Date */}
-                                           <td className="p-4 text-gray-400 font-light">{applicant.date}</td>
+                                           <td className="p-4 text-gray-800 font-light">{applicant.date || applicant.appliedAt}</td>
                                            {/* Interactive Dynamic Badge */}
                                            <td className="p-4">
                                                 <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${
@@ -424,7 +424,7 @@ function NgoDashboard() {
                             <div className="border border-gray-100 rounded-xl p-6 bg-white shadow-sm">
                                 <p className="text-xs font-medium tracking-wider text-gray-500 uppercase">Approved Volunteers</p>
                                 <p className="text-3xl font-light text-gray-900 mt-2">
-                                    {volunteerApplications.filter(a => a.status === "Approved").length}
+                                    {applicants.filter(a => a.status === "Approved" || a.status === "Accepted").length}
                                </p>
                            </div>
                        </div>
@@ -446,8 +446,8 @@ function NgoDashboard() {
                                         {postedProjects && postedProjects.length > 0 ? (
                                             postedProjects.map((project, idx) => {
                                                 // Calculate applicants per project title
-                                                const projectApps = volunteerApplications.filter(a => a.projectTitle === project.title);
-                                                const approvedCount = projectApps.filter(a => a.status === "Approved").length;
+                                                const projectApps = applicants? applicants.filter(a => (a.projectTitle || a.position) === project.title) : [];
+                                                const approvedCount = projectApps.filter(a => a.status === "Approved" || a.status === "Accepted").length;
                                                 return (
                                                     <tr key={idx} className="hover:bg-gray-50/50 transition-colors">
                                                         <td className="p-4 font-medium text-gray-800">{project.title}</td>
