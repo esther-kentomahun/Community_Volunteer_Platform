@@ -415,6 +415,7 @@ function NgoDashboard() {
                                         <th className="p-4 font-medium">Volunteer</th>
                                         <th className="p-4 font-medium">Applied Position</th>
                                         <th className="p-4 font-medium">Volunteer id</th>
+                                        <th className="p-4 font-medium">Email</th>
                                         <th className="p-4 font-medium">Skills</th>
                                         <th className="p-4 font-medium">Availability</th>
                                         <th className="p-4 font-medium">Date</th>
@@ -422,18 +423,19 @@ function NgoDashboard() {
                                         <th className="p-4 font-medium text-right">Actions</th>
                                    </tr>
                                </thead>
-                               <tbody className="divide-y divide-gray-50 text-sm text-gray-600">
+                               <tbody className="divide-y divide-gray-200 text-sm text-gray-600">
                                     {applicants.map((applicant) => (
                                         <tr key={applicant.id } className="hover:bg-gray-50/50 transition-colors">
                                             {/* Profile Details */}
                                             <td className="p-4">
-                                                <div className="font-medium text-gray-900">{applicant.name || applicant.fullName || applicant.voulunteerName || "Anonymous"}</div>
-                                                <div className="text-xs text-gray-800 font-light">{applicant.email}</div>
+                                                <div className="font-medium text-gray-900">{applicant.voulunteerName}</div>
                                            </td>
                                            {/* Position */}
                                            <td className="p-4 text-gray-800 font-light">{applicant.position || applicant.projectTitle}</td>
                                            {/* id */}
                                            <td className="p-4 text-gray-800 font-light">{applicant.id}</td>
+                                           {/* Email */}
+                                           <td className="p-4 text-gray-800 font-light">{applicant.volunteerEmail}</td>
                                            {/* Skills */}
                                            <td className="p-4 text-gray-800 font-light">{applicant.skills}</td>
                                            {/* availability */}

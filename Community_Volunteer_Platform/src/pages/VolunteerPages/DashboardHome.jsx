@@ -23,7 +23,7 @@ const approvedApplications = myApplications.filter(
 const rejectedApplications = myApplications.filter(
   (application) => application.status === "Declined"
 ).length;
-  console.log(myApplications);
+  //console.log(myApplications);
   
     return(
         <div>
