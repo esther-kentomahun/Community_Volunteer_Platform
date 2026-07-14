@@ -36,7 +36,7 @@ function Login() {
           const firstName = UserData.name.split(" ")[0];
           alert(
               `Welcome back, ${firstName}! Redirecting to volunteer Dashboard...`,);
-            navigate("/VolunteerDashboard");
+            navigate("/");
       } else {
         alert(
           `Welcome back, ${UserData.name}! Redirecting to your NGO Dashboard...`,
