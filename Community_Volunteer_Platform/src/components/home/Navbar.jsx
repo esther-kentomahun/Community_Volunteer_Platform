@@ -1,6 +1,6 @@
 // import React, { useState } from "react";
 import { useState , useEffect} from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 function Navbar() {
   const navigate = useNavigate()
@@ -18,7 +18,7 @@ function Navbar() {
   },[]);
 
   const handleLogout = (()=>{
-localStorage.removeItem("currentUser");
+localStorage.removeItem("CurrentUser");
 setCurrentUser(null);
 navigate("/")
   })
@@ -84,9 +84,10 @@ navigate("/")
           <a href="#" role="menuitem" className="">
             About
           </a>
-          <a href="#" role="menuitem" className="">
-            Contact
-          </a>
+          <NavLink to="/VolunteerDashboard">
+           Dashborad
+          </NavLink>
+         
            <a href="#" role="menuitem" className="">
             Contact
           </a>

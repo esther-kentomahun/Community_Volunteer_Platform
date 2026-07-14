@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../components/home/Navbar";
+
 function Login() {
     const navigate = useNavigate();
   const [isLoginTab, setIsLoginTab] = useState(true);
@@ -72,10 +74,12 @@ function Login() {
     }
   };
   return (
-    <div className="min-h-screen w-h-full flex items-center justify-center bg-slate-100 relative p-4">
+    
+    <div className="min-h-screen w-h-full  items-center justify-center bg-slate-100 relative p-">
+      <Navbar />
       <div className="absolute inset-0 bg-cover bg-center filter blur-sm opacity-30 pointer-events-none" />
       {/*main form box*/}
-      <div className="w-full max-w-md bg-white border border-gray-100 rounded-2xl shadow-xl p-8 relative z-10">
+      <div className="w-full mt-3 mx-auto max-w-md bg-white border border-gray-100 rounded-2xl shadow-xl p-8 relative z-10">
         {/*header text*/}
         <div className="text-center  mb-6">
           <h2 className="text-2xl font-bold tracking-tight text-gray-900">

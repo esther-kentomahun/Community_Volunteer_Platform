@@ -1,9 +1,21 @@
 import { NavLink } from "react-router-dom";
 import Footer from "../home/Footer.jsx";
 import Navbar from "../home/Navbar.jsx";
+import { useNavigate } from "react-router-dom";
 
 
 function Home() {
+  const navigate = useNavigate()
+
+  const handleViewDetails = (projectid) =>{
+  const CurrentUser  = JSON.parse(localStorage.getItem("CurrentUser"));
+  if (!CurrentUser) {
+    alert("Please Login to continue")
+    navigate("/login")
+    return;
+  }
+  navigate(`VolunteerDashboard/Apply/${projectid}`)
+  }
   return (
     <div className="bg--300 min-h-screen flex flex-col">
       <Navbar />
@@ -50,7 +62,9 @@ function Home() {
               <h2 className="font-bold text-lg">Frontend Developer Internship</h2>
               <p>Kickstart your career by working with experienced developers. Build responsive web 
                 applications using React, Tailwind CSS, and JS</p>
-              <button className="bg-teal-600 p-2 mt-3 text-white  mx-auto text-center ">
+              <button 
+              onClick={handleViewDetails}
+              className="bg-teal-600 p-2 mt-3 text-white  mx-auto text-center ">
                 View Details
               </button>
             </div>
