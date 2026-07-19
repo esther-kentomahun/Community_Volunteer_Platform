@@ -16,8 +16,9 @@ function Home() {
     }
     navigate(`VolunteerDashboard/Apply/${projectid}`);
   };
+  const CurrentUser = JSON.parse(localStorage.getItem("CurrentUser"));
+  const buttonText = CurrentUser?.role === "ngo" ? "Add New Opportunity" : "View More "
   const handleViewMore = () => {
-    const CurrentUser = JSON.parse(localStorage.getItem("CurrentUser"));
     if (!CurrentUser) {
       const shouldLogin = window.confirm(
         "You need to log in to view more opportunities. Would you like to log in now?",
@@ -27,7 +28,12 @@ function Home() {
       }
       return;
     }
-    navigate("/VolunteerDashboard/Opportunities");
+    if (CurrentUser.role === "ngo") {
+      navigate("/ngo-dashboard")
+    }
+    else if (CurrentUser.role === "volunteer"){
+      navigate("/VolunteerDashboard/Opportunities");
+    }
   };
   return (
     <div className="bg--300 min-h-screen flex flex-col">
@@ -81,7 +87,7 @@ function Home() {
             onClick={handleViewMore}
             className="bg-teal-500 shadow-xl p-4 rounded-lg mt-3 text-white  mx-auto text-center "
           >
-            View More Opportunities
+            {buttonText}
           </button>
         </div>
       </section>

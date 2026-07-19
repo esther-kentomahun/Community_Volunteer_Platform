@@ -29,12 +29,20 @@ function Navbar() {
       const AccessDashboard = window.confirm
       ("Please Login to access Your Dashboard. Do u Want to Login?")
       if (AccessDashboard) {
-        
         navigate("/login");
       }
       return;
     }
-    navigate("/VolunteerDashboard");
+   if (currentUser.role === "ngo") {
+    navigate("/ngo-dashboard")
+  }
+  else if(currentUser.role === "volunteer"){
+     navigate("/VolunteerDashboard");
+  
+   }
+   else{
+    alert("Invalid User Role")
+   }
   };
 
   return (
