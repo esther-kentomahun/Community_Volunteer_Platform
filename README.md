@@ -80,7 +80,7 @@ screenshots/
 
 ## 🌐 Live Demo
 
-🔗 **Live Application:** https://your-live-demo-link.com
+🔗 **Live Application:** https://community-volunteer-platform.vercel.app/
 
 ---
 

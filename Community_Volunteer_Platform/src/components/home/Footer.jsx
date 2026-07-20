@@ -8,7 +8,7 @@ function Footer() {
       
 
         {/* Footer Links */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mt- bg" >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt- bg" >
 
           {/* Logo & Address */}
           <div>
@@ -57,20 +57,7 @@ function Footer() {
             </ul>
           </div>
 
-          {/* Opportunities */}
-          <div>
-            <h3 className="font-semibold text-lg mb-5">
-              Opportunities
-            </h3>
-
-            <ul className="space-y-3 text-gray-600">
-              <li><a href="#">Browse Jobs</a></li>
-              <li><a href="#">Remote Roles</a></li>
-              <li><a href="#">Internships</a></li>
-              <li><a href="#">Volunteer Roles</a></li>
-              <li><a href="#">Apply Now</a></li>
-            </ul>
-          </div>
+       
 
         </div>
 

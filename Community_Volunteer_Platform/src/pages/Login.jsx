@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+<<<<<<< HEAD
 import { HiOutlineLockClosed, HiOutlineEye, HiOutlineEyeOff, HiOutlineMail, HiOutlineUser, HiOutlineOfficeBuilding } from "react-icons/hi";
+=======
+import Navbar from "../components/home/Navbar";
+
+>>>>>>> 5b1b2c3fbaa1b32f8dde796c63e7f309e55b7efb
 function Login() {
     const navigate = useNavigate();
   const [isLoginTab, setIsLoginTab] = useState(true);
@@ -35,7 +40,7 @@ function Login() {
           const firstName = UserData.name.split(" ")[0];
           alert(
               `Welcome back, ${firstName}! Redirecting to volunteer Dashboard...`,);
-            navigate("/VolunteerDashboard");
+            navigate("/");
       } else {
         alert(
           `Welcome back, ${UserData.name}! Redirecting to your NGO Dashboard...`,
@@ -73,10 +78,12 @@ function Login() {
     }
   };
   return (
-    <div className="min-h-screen w-h-full flex items-center justify-center bg-teal-200 relative p-4">
+    
+    <div className="min-h-screen w-h-full  items-center justify-center bg-slate-100 relative p-">
+      <Navbar />
       <div className="absolute inset-0 bg-cover bg-center filter blur-sm opacity-30 pointer-events-none" />
       {/*main form box*/}
-      <div className="w-full max-w-md bg-white border border-gray-100 rounded-2xl shadow-xl p-8 relative z-10">
+      <div className="w-full mt-3 mx-auto max-w-md bg-white border border-gray-100 rounded-2xl shadow-xl p-8 relative z-10">
         {/*header text*/}
         <div className="text-center  mb-6">
           <h2 className="text-2xl font-bold tracking-tight text-gray-900">
@@ -100,7 +107,7 @@ function Login() {
           <button
             type="button"
             onClick={() => setIsLoginTab(false)}
-            className={`w-1/2 py-3 text-sm font-semibold transition-all cursor-pointer border-b-2 -mb-[2px] ${!isLoginTab ? "border-teal-500 text-teal-500" : "border-transparent text-gray-400 hover:text-gray-800"}`}
+            className={`w-1/2 py-3 text-sm font-semibold transition-all cursor-pointer border-b-2 -mb-[2px] ${!isLoginTab ? "border-teal-500 text-teal-600" : "border-transparent text-gray-400 hover:text-gray-800"}`}
           >
             Sign Up
           </button>
@@ -126,7 +133,7 @@ function Login() {
                       ? "Enter your full name"
                       : "Enter your organization name"
                   }
-                  className="w-full py-3 px-4 bg-white border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+                  className="w-full py-3 px-4 bg-white border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all"
                   required={!isLoginTab}
                 />
               </div>
@@ -147,7 +154,7 @@ function Login() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your work or voluteer email"
-                className="w-full pl-10 pr-4 py-3 bg-white border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+                className="w-full pl-10 pr-4 py-3 bg-white border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all"
                 required
               />
             </div>
@@ -159,7 +166,14 @@ function Login() {
                 Password
               </label>
               {isLoginTab && (
+<<<<<<< HEAD
                 <a href="#forgot" className="text-xs font-medium text-blue-600 hover:underline">
+=======
+                <a
+                  href="#forgot"
+                  className="text-xs font-medium text-teal-600 hover:underline"
+                >
+>>>>>>> 5b1b2c3fbaa1b32f8dde796c63e7f309e55b7efb
                   Forgot?
                 </a>
               )}
@@ -174,9 +188,16 @@ function Login() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
+<<<<<<< HEAD
                 className="w-full pl-10 pr-4 py-3 bg-white border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
                 required/>
              <button
+=======
+                className="w-full pl-10 pr-4 py-3 bg-white border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all"
+                required
+              />
+              <button
+>>>>>>> 5b1b2c3fbaa1b32f8dde796c63e7f309e55b7efb
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 opacity-40 text-lg cursor-pointer select-none hover:opaciy-70 p-1">
@@ -221,7 +242,8 @@ function Login() {
           {/*continue button*/}
           <button
             type="submit"
-            className="w-full mt-4 bg-teal-500 hover:bg-teal-600 text-white font-medium py-3 px-4 rounded-lg text-sm transition-colors shadow-sm cursor-pointer">
+            className="w-full mt-4 bg-teal-600 hover:bg-teal-700 text-white font-medium py-3 px-4 rounded-lg text-sm transition-colors shadow-sm cursor-pointer"
+          >
             {isLoginTab ? "Continue" : "Create Account"}
           </button>
         </form>
@@ -270,7 +292,8 @@ function Login() {
             <button
               type="button"
               onClick={() => setIsLoginTab(!isLoginTab)}
-              className="font-semibold text-orange-600 hover:underline cursor-pointer bg-transparent border-none p-0 inline ms-1 outline-none focus:outline-none focus:ring-0">
+              className="font-semibold text-orange-600 hover:underline cursor-pointer bg-transparent border-none p-0 inline ms-1"
+            >
               {isLoginTab ? "Create Profile" : "Login Now"}
             </button>
           </p>

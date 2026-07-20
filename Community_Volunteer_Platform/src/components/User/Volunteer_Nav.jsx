@@ -26,7 +26,7 @@ function Volunteer_Nav({ setIsOpen }) {
                 Welcome , {currentUser.name}
               </h1>
             )}
-            {/*<p className="text-white font-bold"> {currentUser.role}</p>*/}
+         
           </div>
         </div>
         <div className="right">

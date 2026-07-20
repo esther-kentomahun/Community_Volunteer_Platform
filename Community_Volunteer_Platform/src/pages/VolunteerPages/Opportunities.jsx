@@ -20,8 +20,8 @@ function Opportunities() {
     );
     console.log("filtered", filteredProjects);
   });
-  const CurrentUsers = JSON.parse(localStorage.getItem("CurrentUser"));
-  const applications = JSON.parse(localStorage.getItem("allVolunteerApplications"));
+  const CurrentUsers = JSON.parse(localStorage.getItem("CurrentUser")) || [];
+  const applications = JSON.parse(localStorage.getItem("allVolunteerApplications")) || [];
 
   return (
     <div>
