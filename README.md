@@ -115,11 +115,6 @@ This project demonstrates:
 
 ---
 
-## 📄 License
-
-This project is licensed under the **MIT License**.
-
----
 
 ## 👩‍💻 Authors
 
@@ -144,7 +139,7 @@ Frontend Developer passionate about building modern, responsive, and user-friend
 - 💻 **GitHub:** https://github.com/fidelis-martha
 - 💼 **LinkedIn:** https://www.linkedin.com/in/fidelis-martha-a35105315
 - 🐦 **X (Twitter):** https://x.com/martha_fidelis?t=UW7XFpdWruPv8EPC6Z8JWw&s=09
-- 📧 **Email:** your-email@example.com
+- 📧 **Email:** fidelismartha23@gmail.com
 
 ---
 

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { HiOutlineLockClosed, HiOutlineEye, HiOutlineEyeOff, HiOutlineMail, HiOutlineUser, HiOutlineOfficeBuilding } from "react-icons/hi";
 function Login() {
     const navigate = useNavigate();
   const [isLoginTab, setIsLoginTab] = useState(true);
@@ -139,7 +140,7 @@ function Login() {
             <div className="relative w-full">
               {/*Envelope icon*/}
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400 opacity-40">
-                ✉️
+                <HiOutlineMail className="w-5 h-5"/>
               </div>
               <input
                 type="email"
@@ -158,34 +159,29 @@ function Login() {
                 Password
               </label>
               {isLoginTab && (
-                <a
-                  href="#forgot"
-                  className="text-xs font-medium text-blue-600 hover:underline"
-                >
+                <a href="#forgot" className="text-xs font-medium text-blue-600 hover:underline">
                   Forgot?
                 </a>
               )}
             </div>
             <div className="relative w-full">
               {/*Lock icon*/}
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointed-events-none text-gray-400 opacity-40">
-                🔒
-              </div>
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                  <HiOutlineLockClosed className="w-5 h-5"/>
+                </div>
               <input
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
-                className="w-full pl-10 pr-4 py-3 bg-white border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
-                required
-              />
-              <button
+                className="w-full pl-10 pr-4 py-3 bg-white border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+                required/>
+             <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 opacity-40 text-lg cursor-pointer select-none hover:opaciy-70 p-1"
-              >
-                {showPassword ? "🙈" : "👁️"}
-              </button>
+                className="absolute right-3 opacity-40 text-lg cursor-pointer select-none hover:opaciy-70 p-1">
+                {showPassword ? <HiOutlineEyeOff className="w-5 h-5"/> : <HiOutlineEye className="w-5 h-5"/>}
+             </button>
             </div>
           </div>
           {/*CONDITIONAL ROLE SELECTION (SIGN UP ONLY)*/}
@@ -203,9 +199,9 @@ function Login() {
                     userRole === "volunteer"
                       ? "border-teal-600 bg-teal-50 text-teal-700 font-semibold ring-1 ring-teal-600"
                       : "border-gray-200 bg-white text-gray-600 hover:bg-gray-50"
-                  }`}
-                >
-                  👤 A Volunteer
+                  }`}>
+                  <HiOutlineUser className="w-5 h-5"/>
+                  <span>A Volunteer</span>
                 </button>
                 {/* NGO / Organization Option Button */}
                 <button
@@ -215,9 +211,9 @@ function Login() {
                     userRole === "ngo"
                       ? "border-teal-600 bg-teal-50 text-teal-700 font-semibold ring-1 ring-teal-600"
                       : "border-gray-200 bg-white text-gray-600 hover:bg-gray-50"
-                  }`}
-                >
-                  🏢 An NGO / Organization
+                  }`}>
+                  <HiOutlineOfficeBuilding className="w-5 h-5"/>
+                  <span>An NGO / Organization</span>
                 </button>
               </div>
             </div>

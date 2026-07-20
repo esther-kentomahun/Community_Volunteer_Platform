@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { HiOutlineLocationMarker, HiOutlineClock } from "react-icons/hi";
 function NgoDashboard() {
     const [projectTitle, setProjectTitle] = useState(""); 
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -145,7 +146,7 @@ function NgoDashboard() {
         setConfirmPassword("");
     };
     const handleLogout = () => {
-        // Clear the active session tracking from LocalStorage
+        // Clear active session tracking from LocalStorage
         localStorage.removeItem("CurrentUser");
         // Clear any local state tracking if needed
         setCurrentUser(null); 
@@ -382,12 +383,14 @@ function NgoDashboard() {
                                                     {project.status || "Active"}
                                                </span>
                                            </div>
-                                            <div className="flex flex-wrap gap-4 text-xs font-medium text-gray-400 border-b border-gray-50 pb-3 mb-3">
+                                            <div className="flex flex-wrap gap-4 text-sm font-medium text-gray-600 border-b border-gray-50 pb-3 mb-3">
                                                 <span className="flex items-center gap-1">
-                                                    <span>📍</span> {project.location}
+                                                    <HiOutlineLocationMarker w-5 h-5/>
+                                                    <span>{project.location}</span>
                                                </span>
                                                <span className="flex items-center gap-1">
-                                                    <span>🕒</span> {project.duration}
+                                                    <HiOutlineClock w-5 h-5/>
+                                                    <span>{project.duration}</span>
                                                 </span>
                                            </div>
                                            <p className="text-sm text-gray-600 leading-relaxed font-normal">
