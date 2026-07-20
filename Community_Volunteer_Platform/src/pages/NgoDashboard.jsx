@@ -17,14 +17,6 @@ function NgoDashboard() {
         }
         return "Organization";
     });
-    //security check in case of bypassers
-    // useEffect(() => {
-    //     const savedUser = localStorage.getItem("UserData");
-    //      if (!savedUser) {
-    //         alert("Access Denied: Please login to access the organization Management Portal.");
-    //         navigate("/login");
-    //     }
-    // },[navigate]);
     //Application tab
     const [applicants, setApplicants] = useState(() => {
         //Read the shared storage key

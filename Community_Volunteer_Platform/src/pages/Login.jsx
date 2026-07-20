@@ -163,12 +163,12 @@ function Login() {
                 Password
               </label>
               {isLoginTab && (
-                <a href="#forgot" className="text-xs font-medium text-blue-600 hover:underline">
+                <a href="#forgot" className="text-xs font-medium text-teal-600 hover:underline">
                   Forgot?
                 </a>
               )}
             </div>
-            <div className="relative w-full">
+            <div className="relative w-full flex items-center">
               {/*Lock icon*/}
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
                   <HiOutlineLockClosed className="w-5 h-5"/>
@@ -178,16 +178,12 @@ function Login() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
-                className="w-full pl-10 pr-4 py-3 bg-white border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+                className="w-full pl-10 pr-4 py-3 bg-white border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all"
                 required/>
-             <button
-                className="w-full pl-10 pr-4 py-3 bg-white border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all"
-                required
-              />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 opacity-40 text-lg cursor-pointer select-none hover:opaciy-70 p-1">
+                className="absolute right-3 text-gray-400 hover:text-gray-600 flex items-center justify-center cursor-pointer select-none p-1">
                 {showPassword ? <HiOutlineEyeOff className="w-5 h-5"/> : <HiOutlineEye className="w-5 h-5"/>}
              </button>
             </div>
