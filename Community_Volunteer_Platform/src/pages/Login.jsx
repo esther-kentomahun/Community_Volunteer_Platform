@@ -1,13 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-<<<<<<< HEAD
 import { HiOutlineLockClosed, HiOutlineEye, HiOutlineEyeOff, HiOutlineMail, HiOutlineUser, HiOutlineOfficeBuilding } from "react-icons/hi";
-=======
 import Navbar from "../components/home/Navbar";
 
->>>>>>> 5b1b2c3fbaa1b32f8dde796c63e7f309e55b7efb
 function Login() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const [isLoginTab, setIsLoginTab] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -166,14 +163,7 @@ function Login() {
                 Password
               </label>
               {isLoginTab && (
-<<<<<<< HEAD
                 <a href="#forgot" className="text-xs font-medium text-blue-600 hover:underline">
-=======
-                <a
-                  href="#forgot"
-                  className="text-xs font-medium text-teal-600 hover:underline"
-                >
->>>>>>> 5b1b2c3fbaa1b32f8dde796c63e7f309e55b7efb
                   Forgot?
                 </a>
               )}
@@ -188,16 +178,13 @@ function Login() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
-<<<<<<< HEAD
                 className="w-full pl-10 pr-4 py-3 bg-white border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
                 required/>
              <button
-=======
                 className="w-full pl-10 pr-4 py-3 bg-white border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all"
                 required
               />
               <button
->>>>>>> 5b1b2c3fbaa1b32f8dde796c63e7f309e55b7efb
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 opacity-40 text-lg cursor-pointer select-none hover:opaciy-70 p-1">
